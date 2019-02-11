@@ -2,6 +2,7 @@ import dlib
 import cv2
 import numpy as np
 import csv
+import pandas as pd
 
 import models
 import NonLinearLeastSquares
@@ -61,6 +62,8 @@ modelParams = np.zeros(20)
 startTime = time.time()
 
 count = 0
+
+csvfile = open("output/keypoints.csv", "w", newline="\n")
 while True:
     # 배경으로 사용할 영상의 프레임 이미지 읽기
     cameraImg = cap_background.read()[1]
@@ -85,20 +88,10 @@ while True:
         print(user_shapes2D)
         print(type(user_shapes2D)) #list
         #CSVfile 로 저장하기
-        
-        #pandas이용
-        #dataframe = pd.Dataframe(user_shapes2D)
-        #dataframe.to_csv("output/",header=False, index=False)
-        
-        #scv writer이용
-        csvfile = open("output/keypoints%d.csv" %count,"w",newline="")
-        count += 1
-        
+
         csvwriter = csv.writer(csvfile)
         for row in user_shapes2D:
             csvwriter.writerow(row)
-        
-        csvfile.close()
         
         # 배경영상 얼굴의 각도를 이용하여 유저 얼굴이미지 선택
         if user_shapes2D is not None:
@@ -160,7 +153,9 @@ while True:
     #     writer = None
 endTime = time.time() - startTime
 writer.release()
-print(endTime) 
+print(endTime)
+
+csvfile.close()
 
 files = listdir('.')
 
