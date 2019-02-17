@@ -1,8 +1,6 @@
 import dlib
 import cv2
 import numpy as np
-import csv
-import pandas as pd
 
 import models
 import NonLinearLeastSquares
@@ -60,10 +58,6 @@ writer = cv2.VideoWriter(output_video_name, cv2.VideoWriter_fourcc(*'XVID'), 25,
 framecnt = 0
 modelParams = np.zeros(20)
 startTime = time.time()
-
-count = 0
-
-csvfile = open("output/keypoints.csv", "w", newline="\n")
 while True:
     # 배경으로 사용할 영상의 프레임 이미지 읽기
     cameraImg = cap_background.read()[1]
@@ -74,25 +68,10 @@ while True:
     #shapes2D가 none이면 얼굴인식이 안되는 상황,
     #none이 아니면 얼굴인식이 되서 페이셜포인트 찾은 상황
     if shapes2D is not None:
-        #얼굴 이미지
-        # image_name = "input/"+str(utils.getFaceAngle(shapes2D))+".png"
-        # textureImg = cv2.imread(image_name) # Image for face
-        # cap_face = cv2.VideoCapture(0) # WebCAM for face
-        # textureImg = cap_face.read()[1]
         textureImg = textureImgs[utils.getFaceAngle(shapes2D)]
 
         # 유저 얼굴 영상에서 얼굴을 인식하고, 키포인트를 추출함
         user_shapes2D = utils.getFaceKeypoints(textureImg, detector, predictor, maxImageSizeForDetection)
-        
-        #얼굴 키포인트를 프린트해봄
-        print(user_shapes2D)
-        print(type(user_shapes2D)) #list
-        #CSVfile 로 저장하기
-
-        csvwriter = csv.writer(csvfile)
-        for row in user_shapes2D:
-            csvwriter.writerow(row)
-        
         # 배경영상 얼굴의 각도를 이용하여 유저 얼굴이미지 선택
         if user_shapes2D is not None:
             print("user_face_angle: {}".format(utils.getFaceAngle(user_shapes2D)))
@@ -129,33 +108,10 @@ while True:
 
     # 얼굴 합성된 영상 출력
     cv2.imshow('image', cameraImg)
-    # key = cv2.waitKey(1)
 
-    # if key == 27: #ESC 누르면 종료
-    #     break
-    # if key == ord('t'): # 3D매쉬와 키포인트를 화면 위에 그림
-    # drawOverlay = not drawOverlay
-    # if key == ord('r'):
-
-    
-    # if writer is None:
-    #     print("Starting video writer") # 영상 녹화
-    #     writer = cv2.VideoWriter('../out.avi', cv2.VideoWriter_fourcc(*'XVID'), 25, (cameraImg.shape[1], cameraImg.shape[0]), True) 
-
-    #     if writer.isOpened():
-    #         print("Writer succesfully opened")
-    #     else:
-    #         writer = None
-    #         print("Writer opening failed")
-    # else:
-    #     print("Stopping video writer")
-    #     writer.release()
-    #     writer = None
 endTime = time.time() - startTime
 writer.release()
-print(endTime)
-
-csvfile.close()
+print(endTime) 
 
 files = listdir('.')
 
