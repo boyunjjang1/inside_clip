@@ -43,7 +43,7 @@ cameraImg = cap_background.read()[1]
 
 modelParams = np.zeros(20)
 
-output_csv_name =backgroundvideo +'_'+ datetime.datetime.now().strftime('%Y%m%d_%H%M%S') + '.avi'
+output_csv_name =backgroundvideo +'_'+ datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 csvfile = open("facial_points/"+output_csv_name+".csv", "w", newline="")
 while True:
     # 배경으로 사용할 영상의 프레임 이미지 읽기
