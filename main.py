@@ -145,5 +145,3 @@ for name in files:
 	if name == output_video_name:
 		newname = name.replace(output_video_name,output_video_name+'_duration: '+endTime)
 		rename(name,newname)
-		
-
