@@ -1,7 +1,9 @@
 import dlib
 import cv2
 import numpy as np
+
 import csv
+import pandas as pd
 
 import models
 import NonLinearLeastSquares
@@ -31,7 +33,8 @@ lockedTranslation = False
 drawOverlay = False
 writer = None
 
-backgroundvideo = "testvideo3"
+backgroundvideo ="testvideo3"
+
 # 콤비네이션: VC:Video,Cam | CI: Cam,Image | CC: Cam, Cam | VI: Video,Image
 cap_background = cv2.VideoCapture("input/"+backgroundvideo+".mp4") # Video for background
 # cap_background = cv2.VideoCapture(0) # WebCAM for background
@@ -39,28 +42,38 @@ cameraImg = cap_background.read()[1]
 
 modelParams = np.zeros(20)
 
-output_csv_name =backgroundvideo
-csvfile = open("facial_points/"+output_csv_name+".csv", "w", newline="")
-while True:
-    # 배경으로 사용할 영상의 프레임 이미지 읽기
-    ret, cameraImg = cap_background.read()
-    
-    #영상이 끝나면 반복문 탈출
-    if ret == False:
-        break
 
-    # 영상에서 얼굴을 인식하고, 키포인트를 추출함
-    shapes2D = utils.getFaceKeypoints(cameraImg, detector, predictor, maxImageSizeForDetection)
-    
-    #shapes2D가 none이면 얼굴인식이 안되는 상황,
-    #none이 아니면 얼굴인식이 되서 페이셜포인트 찾은 상황
-    if shapes2D is not None:
-        #얼굴 키포인트를 프린트해봄
-        print(shapes2D[0]) #shapes2D 타입은 list
 
-        csvwriter = csv.writer(csvfile)
-        for row in shapes2D[0]:
-            csvwriter.writerow(row)
-    else :
-        pass
-csvfile.close()
+with open("facial_points/"+backgroundvideo+".csv", "w", newline="") as csvfile:
+    csvwriter = csv.writer(csvfile, delimiter=',')
+    csvwriter.writerow(['frame_number','unknown(0)/male(1)/female(2)','facial_landmarks(x-56,y-56)'])
+    framecnt = 0
+
+    while True:
+        #프레임 세기
+        framecnt += 1
+        print(framecnt)
+        # 배경으로 사용할 영상의 프레임 이미지 읽기
+        ret, cameraImg = cap_background.read()
+        
+        #영상이 끝나면 반복문 탈출
+        if ret == False:
+            break
+
+        # 영상에서 얼굴을 인식하고, 키포인트를 추출함
+        shapes2D = utils.getFaceKeypoints(cameraImg, detector, predictor, maxImageSizeForDetection)
+        
+        #shapes2D가 none이면 얼굴인식이 안되는 상황,
+        #none이 아니면 얼굴인식이 되서 페이셜포인트 찾은 상황
+        if shapes2D is not None:
+
+            frame = [framecnt,0]
+            print (frame)
+  
+            rows =np.append(frame,shapes2D[0][0])
+            rows = np.append(rows,shapes2D[0][1]) 
+            csvwriter.writerow(rows)
+        
+        else :
+            #인식 못했을 경우 빈 줄
+            csvwriter.writerow("")
