@@ -42,7 +42,7 @@ lockedTranslation = False
 drawOverlay = False
 writer = None
 
-backgroundvideo = "testvideo1"
+backgroundvideo = "testvideo3"
 # 콤비네이션: VC:Video,Cam | CI: Cam,Image | CC: Cam, Cam | VI: Video,Image
 cap_background = cv2.VideoCapture("input/"+backgroundvideo+".mp4") # Video for background
 # cap_background = cv2.VideoCapture(0) # WebCAM for background
@@ -64,10 +64,9 @@ while True:
     
     # 영상에서 얼굴을 인식하고, 키포인트를 추출함
     shapes2D = utils.getFaceKeypoints(cameraImg, detector, predictor, maxImageSizeForDetection)
-  
-    #shapes2D가 none이면 얼굴인식이 안되는 상황,
-    #none이 아니면 얼굴인식이 되서 페이셜포인트 찾은 상황
-    if shapes2D is not None:
+
+    #shapes2D가 비어있지 않다면
+    if shapes2D:
         textureImg = textureImgs[utils.getFaceAngle(shapes2D)]
 
         # 유저 얼굴 영상에서 얼굴을 인식하고, 키포인트를 추출함

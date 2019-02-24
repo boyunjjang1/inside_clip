@@ -33,7 +33,7 @@ lockedTranslation = False
 drawOverlay = False
 writer = None
 
-backgroundvideo ="testvideo3"
+backgroundvideo ="testvideo1"
 
 # 콤비네이션: VC:Video,Cam | CI: Cam,Image | CC: Cam, Cam | VI: Video,Image
 cap_background = cv2.VideoCapture("input/"+backgroundvideo+".mp4") # Video for background
@@ -41,8 +41,6 @@ cap_background = cv2.VideoCapture("input/"+backgroundvideo+".mp4") # Video for b
 cameraImg = cap_background.read()[1]
 
 modelParams = np.zeros(20)
-
-
 
 with open("facial_points/"+backgroundvideo+".csv", "w", newline="") as csvfile:
     csvwriter = csv.writer(csvfile, delimiter=',')
@@ -65,15 +63,15 @@ with open("facial_points/"+backgroundvideo+".csv", "w", newline="") as csvfile:
         
         #shapes2D가 none이면 얼굴인식이 안되는 상황,
         #none이 아니면 얼굴인식이 되서 페이셜포인트 찾은 상황
-        if shapes2D is not None:
-
+        if shapes2D :
             frame = [framecnt,0]
             print (frame)
-  
+
             rows =np.append(frame,shapes2D[0][0])
             rows = np.append(rows,shapes2D[0][1]) 
+            print(rows)
             csvwriter.writerow(rows)
-        
         else :
-            #인식 못했을 경우 빈 줄
-            csvwriter.writerow("")
+            #인식 못했을 경우 
+            frame = [framecnt,-1]
+            csvwriter.writerow(frame)
