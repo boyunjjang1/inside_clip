@@ -75,7 +75,7 @@ def getFaceKeypoints(img, detector, predictor, maxImgSizeForDetection=640):
         #detekcja twarzy
         dets = detector(scaledImg, 1)
 
-    if len(dets) == 0:
+    else:
         return None
 
     shapes2D = []

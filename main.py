@@ -14,9 +14,6 @@ import utils
 import datetime
 import time
 
-from os import rename, listdir
-
-
 print("Press T to draw the keypoints and the 3D model") #결과 영상에 얼굴합성 과정 표시
 print("Press R to start recording to a video file") #녹화
 
@@ -60,7 +57,11 @@ modelParams = np.zeros(20)
 startTime = time.time()
 while True:
     # 배경으로 사용할 영상의 프레임 이미지 읽기
-    cameraImg = cap_background.read()[1]
+    ret, cameraImg = cap_background.read()
+    
+    #영상이 끝나면 반복문 탈출
+    if ret == False:
+        break
     
     # 영상에서 얼굴을 인식하고, 키포인트를 추출함
     shapes2D = utils.getFaceKeypoints(cameraImg, detector, predictor, maxImageSizeForDetection)
@@ -110,11 +111,5 @@ while True:
 
 endTime = time.time() - startTime
 writer.release()
+print("endTime: ")
 print(endTime) 
-
-files = listdir('.')
-
-for name in files:
-	if name == output_video_name:
-		newname = name.replace(output_video_name,output_video_name+'_duration: '+endTime)
-		rename(name,newname)
