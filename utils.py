@@ -73,7 +73,7 @@ def getFaceKeypoints(img, detector, predictor, maxImgSizeForDetection=640):
 
         #detekcja twarzy
         dets = detector(scaledImg, 1)
-        print(len(dets))
+        print("number of face: {}".format(len(dets)))
 
     else:
         return None
@@ -128,47 +128,42 @@ def getFaceAngle(shapes2D):
     #print("face_x_dif: {}".format(face_x_dif))
 
     # face_x_dif
-    # -0.1~0.1: 정면 0
-    if (-0.1<=face_x_dif)&(face_x_dif<=0.1):
-        print("angle: {}".format(0))
-        return 0
-    
-    # -0.2~-0.1: 왼쪽으로 1
-    elif(-0.2<=face_x_dif)&(face_x_dif<-0.1):
-        print("angle: {}".format(1))
-        return 1
+    ret = 0
+    # ~-0.4: 왼쪽으로 0
+    if(face_x_dif< -0.4):
+        ret = 0
+
+    # -0.4~-0.3: 왼쪽으로 1
+    elif(-0.4<=face_x_dif)&(face_x_dif<-0.3):
+        ret = 1
 
     # -0.3~-0.2: 왼쪽으로 2
     elif(-0.3<=face_x_dif)&(face_x_dif<-0.2):
-        print("angle: {}".format(2))
-        return 2
+        ret = 2
+    
+    # -0.2~-0.1: 왼쪽으로 3
+    elif(-0.2<=face_x_dif)&(face_x_dif<-0.1):
+        ret = 3
 
-    # -0.4~-0.3: 왼쪽으로 3
-    elif(-0.4<=face_x_dif)&(face_x_dif<-0.3):
-        print("angle: {}".format(3))
-        return 3
-
-    # ~-0.4: 왼쪽으로 4
-    elif(face_x_dif< -0.4):
-        print("angle: {}".format(4))
-        return 4
+    # -0.1~0.1: 정면 4
+    elif (-0.1<=face_x_dif)&(face_x_dif<=0.1):
+        ret = 4
 
    # 0.1 ~ 0.2: 오른쪽으로  5
     elif(0.1 <=face_x_dif)&(face_x_dif<0.2):
-        print("angle: {}".format(5))
-        return 5
+        ret = 5
 
     # 0.2 ~ 0.3: 오른쪽으로 6
     elif(0.2<=face_x_dif)&(face_x_dif<0.3):
-        print("angle: {}".format(6))
-        return 6
+        ret = 6
 
     # 0.3 ~ 0.4: 오른쪽으로 7
     elif(0.3<=face_x_dif)&(face_x_dif<0.4):
-        print("angle: {}".format(7))
-        return 7
+        ret = 7
 
     # 0.4~: 오른쪽으로 8
     else:
-        print("angle: {}".format(8))
-        return 8
+        ret = 8
+       
+    print("angle: {}".format(ret))
+    return ret

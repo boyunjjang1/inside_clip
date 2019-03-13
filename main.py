@@ -110,6 +110,7 @@ while True:
     # 얼굴 합성된 영상 출력
     cv2.imshow('image', cameraImg)
 
+# 걸린 시간 (초) 출력
 endTime = time.time() - startTime
 writer.release()
 print("endTime: ")
