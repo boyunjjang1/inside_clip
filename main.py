@@ -29,6 +29,7 @@ maxImageSizeForDetection = 320
 
 # 얼굴 인식기 로드
 detector = dlib.get_frontal_face_detector()
+#detector = dlib.cnn_face_detection_model_v1("data/mmod_human_face_detector.dat")
 predictor = dlib.shape_predictor(predictor_path)
 mean3DShape, blendshapes, mesh, idxs3D, idxs2D = utils.load3DFaceModel("data/candide.npz")
 

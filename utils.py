@@ -71,9 +71,9 @@ def getFaceKeypoints(img, detector, predictor, maxImgSizeForDetection=640):
             imgScale = maxImgSizeForDetection / float(max(img.shape))
             scaledImg = cv2.resize(img, (int(img.shape[1] * imgScale), int(img.shape[0] * imgScale)))
 
-
         #detekcja twarzy
         dets = detector(scaledImg, 1)
+        print(len(dets))
 
     else:
         return None
