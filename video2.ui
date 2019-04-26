@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1006</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QPushButton" name="btn1">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>350</y>
+     <width>131</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 238, 238);
+font: 75 10pt &quot;Adobe 고딕 Std B&quot;;</string>
+   </property>
+   <property name="text">
+    <string>동영상 촬영</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn2">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>350</y>
+     <width>131</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 238, 238);
+font: 75 10pt &quot;Adobe 고딕 Std B&quot;;</string>
+   </property>
+   <property name="text">
+    <string>동영상 불러오기</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btn2</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>openBackground()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>613</x>
+     <y>375</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>603</x>
+     <y>441</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn1</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>cameraConnected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>345</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>385</x>
+     <y>481</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>openBackground()</slot>
+  <slot>cameraConnected()</slot>
+ </slots>
+</ui>

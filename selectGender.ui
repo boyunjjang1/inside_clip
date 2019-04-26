@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormGender</class>
+ <widget class="QWidget" name="FormGender">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>980</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QPushButton" name="womanButton">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>350</y>
+     <width>110</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 238, 238);
+font: 75 10pt &quot;Adobe 고딕 Std B&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Woman</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="manButton">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>350</y>
+     <width>110</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 238, 238);
+font: 75 10pt &quot;Adobe 고딕 Std B&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Man</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>womanButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FormGender</receiver>
+   <slot>womanSelect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>48</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>manButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FormGender</receiver>
+   <slot>manSelect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>204</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>73</x>
+     <y>230</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>womanSelect()</slot>
+  <slot>manSelect()</slot>
+ </slots>
+</ui>

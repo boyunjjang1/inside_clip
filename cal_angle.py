@@ -11,6 +11,7 @@ import ImageProcessing
 
 import FaceRendering
 import utils
+import pickle
 
 # 키포인트 인식 모델
 predictor_path = "data/shape_predictor_68_face_landmarks.dat"
@@ -31,18 +32,15 @@ lockedTranslation = False
 drawOverlay = False
 writer = None
 
-backgroundvideo = "testvideo1"
-# 콤비네이션: VC:Video,Cam | CI: Cam,Image | CC: Cam, Cam | VI: Video,Image
-cap_background = cv2.VideoCapture("input/"+backgroundvideo+".mp4") # Video for background
-# cap_background = cv2.VideoCapture(0) # WebCAM for background
-cameraImg = cap_background.read()[1]
+data_save = []
+with open('input/user_test1_images' +'/data.pickle', 'rb') as f:
+        data_save = pickle.load(f)
 
-# 본인의 여러 얼굴을 메모리에 저장함 (0~9)
-textureImgs = []
 for i in range(0,9):
-    img="input/"+str(i)+".png"
-    textureImgs.append(cv2.imread(img)) # Image for face
-    textureImg = textureImgs[i]
-    user_shapes2D = utils.getFaceKeypoints(textureImg, detector, predictor, maxImageSizeForDetection)
-    if user_shapes2D is not None:
+    img="input/user_test1_images/"+str(i)+".jpg"
+    textureImg = cv2.imread(img)
+    # height, width, channels = textureImg.shape
+    # user_shapes2D = utils.getFaceKeypointsWithDetectedFace(textureImg, (0,0,width,height), predictor, maxImageSizeForDetection)
+    (user_shapes2D, face_angle) = data_save[i]
+    if user_shapes2D:
         print("{0} angle: {1}".format(img,utils.getFaceAngle(user_shapes2D)))
